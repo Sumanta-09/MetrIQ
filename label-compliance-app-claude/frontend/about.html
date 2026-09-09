@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About us — MetrIQ</title>
+<meta name="description" content="The team behind MetrIQ — NEXORA, a crew of six students from Jalpaiguri Government Engineering College building open-source compliance tooling for packaged goods.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">MetrIQ</span>
+        <span class="brand__tag">by NEXORA</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a class="nav__link" href="/">Home</a>
+      <a class="nav__link" href="/scan">Scanner</a>
+      <a class="nav__link is-current" href="/about">About us</a>
+      <a class="nav__link" href="/admin">Check archive</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="/scan">Launch scanner</a>
+  </div>
+</header>
+
+<main>
+  <header class="page-header page-header--wide">
+    <p class="section__eyebrow">About us</p>
+    <h1 class="page-header__title">Small team. Serious about labels.</h1>
+    <p class="page-header__sub">We&rsquo;re NEXORA — six students from Jalpaiguri Government Engineering College (JGEC) building open-source tooling for people who have to get packaging right. MetrIQ started from a simple frustration: checking a label against Indian legal metrology rules meant juggling PDFs of regulations, a magnifying glass, and guesswork. We wanted one tool that reads the pack and points at the exact rule — so inspectors, brands, and small businesses can move faster without trusting a black box.</p>
+  </header>
+
+  <section class="section section--tight" id="team">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section__eyebrow">The team</p>
+        <h2 class="section__title">Who&rsquo;s behind MetrIQ</h2>
+      </div>
+
+      <div class="team-grid">
+        <article class="member">
+          <span class="member__badge">Team Leader</span>
+          <div class="member__avatar g-1">RB</div>
+          <p class="member__role">Mechanical Engineering, JGEC</p>
+          <h3 class="member__name">Rishik Bhattacharya</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-2">SKA</div>
+          <p class="member__role">Information Technology, JGEC</p>
+          <h3 class="member__name">Sumanta Kumar Adhek</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-3">AP</div>
+          <p class="member__role">Information Technology, JGEC</p>
+          <h3 class="member__name">Akash Paria</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-4">PH</div>
+          <p class="member__role">Information Technology, JGEC</p>
+          <h3 class="member__name">Prapti Howlader</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-5">SD</div>
+          <p class="member__role">Mechanical Engineering, JGEC</p>
+          <h3 class="member__name">Swapnanil Dey</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-6">AS</div>
+          <p class="member__role">Mechanical Engineering, JGEC</p>
+          <h3 class="member__name">Anurag Sarkar</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight" id="values">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section__eyebrow">What we believe</p>
+        <h2 class="section__title">Principles, printed in</h2>
+      </div>
+      <div class="features">
+        <article class="feature">
+          <div class="feature__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="feature__title">Fail loudly, not confidently</h3>
+          <p class="feature__text">When the OCR is unsure, we say so. Every check is either pass, fail, incomplete, or explicitly conditional — never a silent guess dressed up as a verdict.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 9l-5 3 5 3M16 9l5 3-5 3M13 5l-2 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="feature__title">Open source, always</h3>
+          <p class="feature__text">No paid APIs, no lock-in, no data leaving your machine. Anyone can read the rule engine, audit it, and extend it to a new product category.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h3 class="feature__title">Cite everything</h3>
+          <p class="feature__text">A verdict is only useful if you can defend it. Each check names the rule it comes from — Rule 6(1)(a), FSS Reg. 5, Drugs Rules 96 — so you can verify in the source.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" id="rules">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section__eyebrow">Legal basis</p>
+        <h2 class="section__title">The rules we check against</h2>
+        <p class="section__sub">Every product type is judged against the baseline declarations of Rule 6, LMPC Rules 2011 — plus the sector-specific regulations that apply.</p>
+      </div>
+      <div class="laws">
+        <div class="law"><span class="law__cite">Rule 6, LMPC Rules 2011</span><span class="law__name">Baseline declarations for every pre-packaged commodity</span></div>
+        <div class="law"><span class="law__cite">Rule 27, LMPC Rules 2011</span><span class="law__name">Country of origin &amp; importer details on imported packages</span></div>
+        <div class="law"><span class="law__cite">FSS (Packaging &amp; Labelling) Regs., 2020</span><span class="law__name">Food: FSSAI license, ingredients, allergens, veg mark</span></div>
+        <div class="law"><span class="law__cite">Cosmetics Rules, 2020</span><span class="law__name">Cosmetics: license, INCI list, batch, use-before period</span></div>
+        <div class="law"><span class="law__cite">Drugs &amp; Cosmetics Rules, 1945</span><span class="law__name">Drugs: license no., batch no., expiry date</span></div>
+        <div class="law"><span class="law__cite">BIS Compulsory Registration</span><span class="law__name">Electronics: BIS/ISI mark reference (informational)</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="/">
+        <svg class="brand__mark" width="24" height="24" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">MetrIQ</span>
+          <span class="brand__tag">by NEXORA</span>
+        </span>
+      </a>
+      <p class="footer__blurb">Heuristic label-scanning checks built on the Legal Metrology (Packaged Commodities) Rules, 2011 and allied Indian regulations. Free, open-source, runs locally.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Product</h4>
+      <a href="/scan">Scanner</a>
+      <a href="/admin">Check archive</a>
+      <a href="/about#rules">Rules we check</a>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Company</h4>
+      <a href="/about#team">The team</a>
+      <a href="/about#values">Our principles</a>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Decision support, not legal advice. A “fail” may mean OCR missed a declaration that is genuinely printed — always spot-check flagged items against the physical package.</p>
+    <p class="footer__legal-copy">MetrIQ by NEXORA &middot; Legal Metrology Compliance Tool &middot; free &amp; open-source</p>
+  </div>
+</footer>
+
+</body>
+</html>

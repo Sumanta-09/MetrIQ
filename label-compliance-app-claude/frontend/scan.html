@@ -1,0 +1,179 @@
+<!-- uvicorn server:app --reload --port 8000 -->
+ <!-- http://localhost:8000/scan -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanner — MetrIQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">MetrIQ</span>
+        <span class="brand__tag">Legal Metrology</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a class="nav__link" href="/">Home</a>
+      <a class="nav__link" href="/#about">About us</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="/scan">Launch scanner</a>
+  </div>
+</header>
+
+<main>
+  <header class="page-header">
+    <p class="section__eyebrow">Scanner</p>
+    <h1 class="page-header__title">Scan Station</h1>
+    <p class="page-header__sub">Capture or upload a label, pick the product type, and we&rsquo;ll check it against the declarations the law requires — flagging what&rsquo;s right, wrong, or missing.</p>
+  </header>
+
+  <div class="wrap layout scan-layout">
+
+    <!-- LEFT: capture / upload -->
+    <section class="station" aria-label="Add label images">
+
+      <div class="station__field">
+        <label class="station__field-label" for="productType">Product type</label>
+        <select class="station__select" id="productType">
+          <option value="other">General pre-packaged commodity</option>
+        </select>
+        <p class="station__field-hint">Sets which mandatory declarations get checked.</p>
+      </div>
+
+      <div class="station__checkbox-field">
+        <label class="station__checkbox">
+          <input type="checkbox" id="isImported">
+          <span>This is an imported product</span>
+        </label>
+        <p class="station__field-hint">Enables country-of-origin / importer checks under Rule 27.</p>
+      </div>
+
+      <div class="station__tabs" role="tablist">
+        <button class="tab is-active" data-tab="upload" role="tab" aria-selected="true">Upload</button>
+        <button class="tab" data-tab="camera" role="tab" aria-selected="false">Camera</button>
+      </div>
+
+      <div class="tab-panel is-active" data-panel="upload">
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Drop images here or click to browse">
+          <svg class="dropzone__icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6V26M20 6L12 14M20 6L28 14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 26V31C6 32.6569 7.34315 34 9 34H31C32.6569 34 34 32.6569 34 31V26" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+          <p class="dropzone__title">Drop label photos here</p>
+          <p class="dropzone__hint">or click to browse — add more than one if text hides behind a flap or fold</p>
+          <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.bmp,.webp" multiple hidden>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="camera">
+        <div class="camera">
+          <video id="cameraVideo" class="camera__video" autoplay playsinline></video>
+          <canvas id="cameraCanvas" hidden></canvas>
+          <div class="camera__idle" id="cameraIdle">
+            <p>Camera is off.</p>
+            <button class="btn btn--primary" id="startCameraBtn">Turn on camera</button>
+          </div>
+          <div class="camera__controls" id="cameraControls" hidden>
+            <button class="btn btn--ghost" id="flipCameraBtn" title="Mirror flip">⇄ Flip</button>
+            <button class="btn btn--primary btn--shutter" id="captureBtn" aria-label="Capture photo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 4L7.5 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3.5L15 4H9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </button>
+            <button class="btn btn--ghost" id="stopCameraBtn">Stop</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="queue" id="queue" hidden>
+        <div class="queue__label">Ready to scan (<span id="queueCount">0</span>)</div>
+        <div class="queue__items" id="queueItems"></div>
+      </div>
+
+      <button class="btn btn--scan" id="scanBtn" disabled>Scan label</button>
+      <p class="station__status" id="stationStatus"></p>
+    </section>
+
+    <!-- RIGHT: results feed -->
+    <section class="log" aria-label="Scan results">
+      <div class="log__header">
+        <h2>Scan Log</h2>
+        <span class="log__count" id="logCount"></span>
+      </div>
+      <div class="log__empty" id="logEmpty">
+        <p>No scans yet.</p>
+        <p>Add a photo on the left and hit <strong>Scan label</strong> — results will print here like a receipt.</p>
+      </div>
+      <div class="log__feed" id="logFeed"></div>
+    </section>
+
+  </div>
+</main>
+
+<template id="ticketTemplate">
+  <article class="ticket">
+    <div class="ticket__body">
+      <div class="ticket__head">
+        <span class="ticket__id"></span>
+        <span class="ticket__time"></span>
+      </div>
+      <div class="ticket__meta"></div>
+      <div class="ticket__verdict"></div>
+      <div class="ticket__photos" hidden></div>
+      <div class="ticket__divider" aria-hidden="true"></div>
+      <div class="ticket__checks"></div>
+    </div>
+  </article>
+</template>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="/">
+        <svg class="brand__mark" width="24" height="24" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">MetrIQ</span>
+          <span class="brand__tag">Legal Metrology</span>
+        </span>
+      </a>
+      <p class="footer__blurb">Heuristic label-scanning checks built on the Legal Metrology (Packaged Commodities) Rules, 2011 and allied Indian regulations. Free, open-source, runs locally.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Product</h4>
+      <a href="/scan">Scanner</a>
+      <a href="/admin">Check archive</a>
+      <a href="/#about">About us</a>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Run it</h4>
+      <span class="footer__mono">cd backend</span>
+      <span class="footer__mono">uvicorn server:app --reload</span>
+      <span class="footer__mono">→ localhost:8000</span>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Decision support, not legal advice. A “fail” may mean OCR missed a declaration that is genuinely printed — always spot-check flagged items against the physical package.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

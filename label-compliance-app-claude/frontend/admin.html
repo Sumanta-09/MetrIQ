@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check archive — MetrIQ Admin</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">MetrIQ</span>
+        <span class="brand__tag">Legal Metrology</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a class="nav__link" href="/">Home</a>
+      <a class="nav__link" href="/#about">About us</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="/scan">Launch scanner</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap admin-page">
+    <header class="admin-head">
+      <div>
+        <p class="section__eyebrow">Admin</p>
+        <h1 class="page-header__title">Check archive</h1>
+        <p class="page-header__sub">Every scan is saved to disk under <span class="inline-mono">backend/sessions/</span>. Review old checks, their verdicts, and the photos they were made from.</p>
+      </div>
+      <div class="admin-head__actions">
+        <button class="btn btn--ghost" id="refreshBtn" type="button">⟳ Refresh</button>
+        <button class="btn btn--ghost" id="logoutBtn" type="button" hidden>Lock archive</button>
+      </div>
+    </header>
+
+    <!-- Summary stats -->
+    <div class="stats-row" id="statsRow" hidden>
+      <div class="stat-card" data-filter="all">
+        <span class="stat-card__value" id="statTotal">0</span>
+        <span class="stat-card__label">Total scans</span>
+      </div>
+      <div class="stat-card stat-card--ok" data-filter="compliant">
+        <span class="stat-card__value" id="statCompliant">0</span>
+        <span class="stat-card__label">Compliant</span>
+      </div>
+      <div class="stat-card stat-card--warn" data-filter="needs_review">
+        <span class="stat-card__value" id="statReview">0</span>
+        <span class="stat-card__label">Needs review</span>
+      </div>
+      <div class="stat-card stat-card--bad" data-filter="non_compliant">
+        <span class="stat-card__value" id="statNonCompliant">0</span>
+        <span class="stat-card__label">Non-compliant</span>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="admin-toolbar" id="toolbar" hidden>
+      <div class="seg" role="group" aria-label="Filter by verdict">
+        <button class="seg__btn is-active" data-status="all">All</button>
+        <button class="seg__btn" data-status="compliant">Compliant</button>
+        <button class="seg__btn" data-status="needs_review">Needs review</button>
+        <button class="seg__btn" data-status="non_compliant">Non-compliant</button>
+      </div>
+      <input class="search" id="searchInput" type="search" placeholder="Filter by id or product…" aria-label="Filter sessions">
+    </div>
+
+    <!-- Master list + detail -->
+    <div class="admin-grid">
+      <section class="sessions-card" aria-label="Past checks">
+        <div class="s-head" hidden>
+          <span>Checked at</span>
+          <span>Session</span>
+          <span>Product</span>
+          <span>Imgs</span>
+          <span>Required</span>
+          <span>Verdict</span>
+        </div>
+        <div class="s-list" id="sessionList">
+          <div class="empty" id="listEmpty" hidden>
+            <p class="empty__title">No checks here yet.</p>
+            <p class="empty__text">Run a scan first — every result is archived automatically and will show up in this list.</p>
+            <a class="btn btn--primary" href="/scan">Go to the scanner</a>
+          </div>
+          <div class="empty" id="listEmptyFilter" hidden>
+            <p class="empty__title">Nothing matches that filter.</p>
+            <p class="empty__text">Try a different verdict or clear the search box.</p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="detail-panel" id="detailPanel" aria-live="polite">
+        <div class="detail-panel__placeholder" id="detailPlaceholder">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v13H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <p>Select a session on the left to open its full check report — verdict, every rule row, extracted fields, and the original label photos.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- Passcode gate -->
+<div class="gate" id="gate" hidden>
+  <div class="gate__card">
+    <div class="gate__lock" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
+    </div>
+    <p class="section__eyebrow">Admin only</p>
+    <h2 class="gate__title">The check archive is restricted</h2>
+    <p class="gate__text">Label photos and scan results are sensitive — enter the admin passcode to open the archive.</p>
+    <form class="gate__form" id="gateForm">
+      <input class="search search--gate" id="passcodeInput" type="password" placeholder="Admin passcode" autocomplete="current-password" aria-label="Admin passcode">
+      <button class="btn btn--primary" type="submit">Unlock</button>
+    </form>
+    <p class="gate__error" id="gateError" hidden>That passcode wasn&rsquo;t right. Try again.</p>
+    <p class="gate__hint">The passcode is set by the <span class="inline-mono">ADMIN_PASSCODE</span> environment variable (default: <span class="inline-mono">labelcheck</span>).</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="/">
+        <svg class="brand__mark" width="24" height="24" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">MetrIQ</span>
+          <span class="brand__tag">Legal Metrology</span>
+        </span>
+      </a>
+      <p class="footer__blurb">Heuristic label-scanning checks built on the Legal Metrology (Packaged Commodities) Rules, 2011 and allied Indian regulations. Free, open-source, runs locally.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Product</h4>
+      <a href="/scan">Scanner</a>
+      <a href="/admin">Check archive</a>
+      <a href="/#about">About us</a>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Decision support, not legal advice. A “fail” may mean OCR missed a declaration that is genuinely printed — always spot-check flagged items against the physical package.</p>
+    <p class="footer__legal-copy">MetrIQ &middot; Legal Metrology Compliance Tool &middot; free &amp; open-source</p>
+  </div>
+</footer>
+
+<script src="admin.js"></script>
+</body>
+</html>

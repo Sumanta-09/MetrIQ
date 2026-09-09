@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetrIQ — Legal Metrology Label Scanner</title>
+<meta name="description" content="MetrIQ reads a product label and checks it against the declarations Indian legal metrology law requires — MRP, net quantity, manufacturer details, dates, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="/">
+      <svg class="brand__mark" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">MetrIQ</span>
+        <span class="brand__tag">Legal Metrology</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a class="nav__link" href="#about">About us</a>
+      <a class="nav__link" href="/admin">Check archive</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="/scan">Launch scanner</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================= HERO ============================= -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__content">
+        <p class="pill"><span class="pill__dot"></span>Open-source &middot; runs on your machine</p>
+        <h1 class="hero__title">Labels that <span class="grad-text">comply</span>,<br>checked in seconds.</h1>
+        <p class="hero__sub">
+          Point your camera at any packaged product and MetrIQ reads the label,
+          pulls out the declarations Legal Metrology cares about, and tells you
+          what&rsquo;s right, what&rsquo;s missing, and what looks off — each tied to the
+          exact rule it comes from.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="/scan">
+            Scan a label
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#about">Meet the team</a>
+        </div>
+        <p class="hero__trust">No sign-up &middot; free &amp; open-source &middot; 6 product categories</p>
+      </div>
+
+      <!-- Product mockup -->
+      <div class="mock" aria-hidden="true">
+        <div class="mock__glow"></div>
+        <div class="mock__card">
+          <div class="mock__bar">
+            <span class="mock__dots"><i></i><i></i><i></i></span>
+            <span class="mock__bar-title">scan receipt &middot; food &amp; beverage</span>
+          </div>
+          <div class="mock__body">
+            <div class="mock__thumbs">
+              <span class="mock__thumb mock__thumb--1"></span>
+              <span class="mock__thumb mock__thumb--2"></span>
+              <span class="mock__thumb mock__thumb--3"></span>
+            </div>
+            <div class="check-row check-row--pass">
+              <span class="check-row__icon">✓</span>
+              <div class="check-row__body">
+                <div class="check-row__top"><span class="check-row__label">Net quantity</span><span class="check-row__citation">Rule 6(1)(b)</span></div>
+                <div class="check-row__message">Found: 16g, in standard metric units.</div>
+              </div>
+            </div>
+            <div class="check-row check-row--pass">
+              <span class="check-row__icon">✓</span>
+              <div class="check-row__body">
+                <div class="check-row__top"><span class="check-row__label">FSSAI license</span><span class="check-row__citation">FSS Regs. 2020</span></div>
+                <div class="check-row__message">Found: 14-digit license number.</div>
+              </div>
+            </div>
+            <div class="check-row check-row--warn">
+              <span class="check-row__icon">!</span>
+              <div class="check-row__body">
+                <div class="check-row__top"><span class="check-row__label">MRP</span><span class="check-row__citation">Rule 6(1)(e)</span></div>
+                <div class="check-row__message">Price found — “inclusive of all taxes” wording not detected.</div>
+              </div>
+            </div>
+            <div class="check-row check-row--fail">
+              <span class="check-row__icon">✕</span>
+              <div class="check-row__body">
+                <div class="check-row__top"><span class="check-row__label">Mfg. date</span><span class="check-row__citation">Rule 6(1)(d)</span></div>
+                <div class="check-row__message">Not found. Month &amp; year of manufacture must be declared.</div>
+              </div>
+            </div>
+            <div class="mock__footer">
+              <span class="mock__verdict mock__verdict--fail">Non-compliant</span>
+              <span class="mock__verdict mock__verdict--meta">5/7 required checks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <p class="hero__footnote">
+        Decision-support tool, not a legal certificate — every flag cites the rule it comes from,
+        and you spot-check before acting. Built on the Legal Metrology (Packaged Commodities) Rules, 2011.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========================== ABOUT US ============================ -->
+  <section class="section section--tight" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section__eyebrow">About us</p>
+        <h2 class="section__title">We&rsquo;re MetrIQ</h2>
+        <p class="section__sub">We build open-source tooling for people who have to get packaging right. MetrIQ started from a simple frustration: checking a label against Indian legal metrology rules meant juggling PDFs of regulations, a magnifying glass, and guesswork. We wanted one tool that reads the pack and points at the exact rule — so inspectors, brands, and small businesses can move faster without trusting a black box.</p>
+      </div>
+
+      <div class="team-grid">
+        <article class="member">
+          <div class="member__avatar g-6">RB</div>
+          <p class="member__role">JGEC &middot; Mechanical Engineering &middot; &lsquo;30</p>
+          <h3 class="member__name">Rishik Bhattacharya</h3>
+          <div class="member__tags"><span>Team Leader</span></div>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-1">SA</div>
+          <p class="member__role">JGEC &middot; Information Technology &middot; &lsquo;30</p>
+          <h3 class="member__name">Sumanta Kumar Adhek</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-2">AP</div>
+          <p class="member__role">JGEC &middot; Information Technology &middot; &lsquo;30</p>
+          <h3 class="member__name">Akash Paria</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-3">PH</div>
+          <p class="member__role">JGEC &middot; Information Technology &middot; &lsquo;30</p>
+          <h3 class="member__name">Prapti Howlader</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-4">SD</div>
+          <p class="member__role">JGEC &middot; Mechanical Engineering &middot; &lsquo;30</p>
+          <h3 class="member__name">Swapnanil Dey</h3>
+        </article>
+
+        <article class="member">
+          <div class="member__avatar g-5">AS</div>
+          <p class="member__role">JGEC &middot; Mechanical Engineering &middot; &lsquo;30</p>
+          <h3 class="member__name">Anurag Sarkar</h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="/">
+        <svg class="brand__mark" width="24" height="24" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="23" height="23" rx="6" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 13.4l3 3 6.5-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">MetrIQ</span>
+          <span class="brand__tag">Legal Metrology</span>
+        </span>
+      </a>
+      <p class="footer__blurb">Heuristic label-scanning checks built on the Legal Metrology (Packaged Commodities) Rules, 2011 and allied Indian regulations. Free, open-source, runs locally.</p>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Product</h4>
+      <a href="/scan">Scanner</a>
+      <a href="/admin">Check archive</a>
+    </div>
+    <div class="footer__col">
+      <h4 class="footer__col-title">Run it</h4>
+      <span class="footer__mono">cd backend</span>
+      <span class="footer__mono">uvicorn server:app --reload</span>
+      <span class="footer__mono">→ localhost:8000</span>
+    </div>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Decision support, not legal advice. A “fail” may mean OCR missed a declaration that is genuinely printed — always spot-check flagged items against the physical package.</p>
+    <p class="footer__legal-copy">MetrIQ &middot; Legal Metrology Compliance Tool &middot; free &amp; open-source</p>
+  </div>
+</footer>
+
+</body>
+</html>
